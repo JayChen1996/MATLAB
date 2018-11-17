@@ -1,4 +1,4 @@
-function p = Fourierfilter(p,threshold)
+function p = Fourierfilter(p,low,high)
     %threshold, belongs to (0,1);
     %
     [m,n,h] = size(p);
@@ -10,10 +10,11 @@ function p = Fourierfilter(p,threshold)
     maxs = max(s(:));
     mins = min(s(:));
     %s = (s-mins)/(maxs-mins);
-    threshold = threshold*(maxs-mins)+mins;
+    thresholdlow = low*(maxs-mins)+mins;
+    thresholdhigh = high*(maxs-mins)+mins;
     for i=1:m
         for j=1:n
-            if abs(r(i,j))<threshold
+            if abs(r(i,j))<thresholdhigh && abs(r(i,j))>thresholdlow
                 r(i,j) = 0+0i;
             end
         end
