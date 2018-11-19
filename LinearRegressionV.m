@@ -13,7 +13,8 @@ function [theta,J] = LinearRegressionV(num,times,alpha)
     theta = ones(1,n); % ??????????????????
     
     for t=1:times
-        J = (1/2*m) * (features * theta' - results).^2;
+        tep = (features * theta' - results).^2;
+        J(1,t) = (1/2*m) * sum(tep,1);
         temp = (features * theta' - results) .* features;
         gamma = (1/m) * sum(temp,1);
         theta = theta - alpha * gamma;
